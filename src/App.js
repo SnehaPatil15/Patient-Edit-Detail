@@ -2,7 +2,7 @@ import './App.css';
 
 function App() {
 
-  var handleSubmit = () => {};
+  var handleSubmit = () => { };
 
   return (
     <main className='App'>
@@ -31,27 +31,30 @@ function App() {
               <input type="text" />
             </div>
 
-            <div className='input_field'>
-              <label htmlFor="">gender</label>
-
-              <input type="radio" value="male" id="male" name="gender" />
-              <label for="male">Male</label>
-
-              <input type="radio" value="female" id="female" name="gender" />
-              <label for="male">female</label>
-
-            </div>
 
             <div className='input_field'>
               <label htmlFor="">Blood Group</label>
               <input type="text" />
             </div>
+
+            <div className='input_field'>
+              <label htmlFor="">gender</label>
+
+              <div className='radio_btn'>
+                <input type="radio" value="male" id="male" name="gender" />
+                <label for="male">Male</label>
+
+                <input type="radio" value="female" id="female" name="gender" />
+                <label for="male">female</label>
+              </div>
+
+            </div>
+
           </section>
 
           <section className='Medical_info'>
 
             <h1>Medical Information </h1>
-
             <div className='input_field'>
               <label htmlFor="">Any Major Disease</label>
               <input type="text" />
