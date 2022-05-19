@@ -31,18 +31,19 @@ function App() {
       try {
         const { data: response } = await axios.get("http://localhost:7557/api/PatientDetails");
         setPid(response[0]);
-
+        console.log(response[0]);
         const fetchData2 = async () => {
           try {
             const { data: response2 } = await axios.get("http://localhost:7557/api/AddPatient");
-            setPateintDetails(response2[response[0].pid]);
-            setName(response2[response[0].pid].Name)
-            setAddress(response2[response[0].pid].Full_Address)
-            setBGroup(response2[response[0].pid].Blood_Group)
-            setContact(response2[response[0].pid].Contact)
-            setGender(response2[response[0].pid].Gender)
-            setMajorDiseases(response2[response[0].pid].Major_Disease)
-            setAge(response2[response[0].pid].Age)
+            console.log(response2);
+            //setPateintDetails(response2[response[0].pid]);
+            setName(response2[(response[0].pid) -1].Name)
+            setAddress(response2[(response[0].pid) -1 ].Full_Address)
+            setBGroup(response2[(response[0].pid) -1 ].Blood_Group)
+            setContact(response2[(response[0].pid) -1 ].Contact)
+            setGender(response2[(response[0].pid) -1 ].Gender)
+            setMajorDiseases(response2[(response[0].pid) -1].Major_Disease)
+            setAge(response2[(response[0].pid) -1].Age)
 
             //console.log(response[0])
             // filterArray2();
@@ -121,10 +122,18 @@ function App() {
               <label>gender</label>
 
               <div className='radio_btn'>
-                <input type="radio" value="male" id="male" name="gender" />
+                <input type="radio" id="male" name="gender"
+                  checked={gender === "male"}
+                  value="male"
+                  onChange={(e) => { setGender(e.target.value) }}
+                />
                 <label for="male">Male</label>
 
-                <input type="radio" value="female" id="female" name="gender" />
+                <input type="radio" id="female" name="gender"
+                  checked={gender === "female"}
+                  value = "female"
+                  onChange={(e) => { setGender(e.target.value) }}
+                />
                 <label for="male">female</label>
               </div>
 
