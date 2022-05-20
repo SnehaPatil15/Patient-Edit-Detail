@@ -1,161 +1,19 @@
-import './App.css';
-import axios from 'axios';
-import { useEffect, useState } from 'react'
+import React from 'react'
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+import PatientForm from "./PatientForm";
 
-
-function App() {
-
-  const [pid, setPid] = useState();
-  const [patientDetailsArray, setPateintDetailsArray] = useState([])
-  const [pateintDetails, setPateintDetails] = useState()
-
-  ////////////////////////////////////////////
-  const [name, setName] = useState("")
-
-  const [address, setAddress] = useState("")
-
-  const [bGroup, setBGroup] = useState('')
-
-  const [contact, setContact] = useState('')
-
-  const [gender, setGender] = useState('')
-
-  const [age, setAge] = useState('')
-
-  const [majorDiseases, setMajorDiseases] = useState('')
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-
-      try {
-        const { data: response } = await axios.get("http://localhost:7557/api/PatientDetails");
-        setPid(response[0]);
-        console.log(response[0]);
-        const fetchData2 = async () => {
-          try {
-            const { data: response2 } = await axios.get("http://localhost:7557/api/AddPatient");
-            console.log(response2);
-            //setPateintDetails(response2[response[0].pid]);
-            setName(response2[(response[0].pid) -1].Name)
-            setAddress(response2[(response[0].pid) -1 ].Full_Address)
-            setBGroup(response2[(response[0].pid) -1 ].Blood_Group)
-            setContact(response2[(response[0].pid) -1 ].Contact)
-            setGender(response2[(response[0].pid) -1 ].Gender)
-            setMajorDiseases(response2[(response[0].pid) -1].Major_Disease)
-            setAge(response2[(response[0].pid) -1].Age)
-
-            //console.log(response[0])
-            // filterArray2();
-          } catch (error) {
-            console.error(error.message);
-          }
-        }
-        fetchData2();
-
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  console.log(bGroup);
-  console.log(address);
-  console.log(contact);
-  console.log(majorDiseases);
-  console.log(gender);
-
-
-  function handleSubmit() { }
-
+export default function App() {
   return (
-    <main className='App'>
-      <section>
-        <form action="" onSubmit={handleSubmit}>
-
-          <section className='Personal__info'>
-            <h1>Personal Information </h1>
-            <div className='input_field'>
-              <label>Patient Name</label>
-              <input type="text"
-                value={name}
-                onChange={(e) => { setName(e.target.value) }}
-              />
-            </div>
-
-            <div className='input_field'>
-              <label htmlFor="address">Address</label>
-              <input type="text"
-                value={address}
-                onChange={(e) => { setAddress(e.target.value) }}
-              />
-            </div>
-
-            <div className='input_field'>
-              <label >Contact Number</label>
-              <input type="text"
-                value={contact}
-                onChange={(e) => { setContact(e.target.value) }}
-              />
-            </div>
-
-            <div className='input_field'>
-              <label >Age</label>
-              <input type="text"
-                value={age}
-                onChange={(e) => { setAge(e.target.value) }}
-              />
-            </div>
-
-
-            <div className='input_field'>
-              <label >Blood Group</label>
-              <input type="text"
-                value={bGroup}
-                onChange={(e) => { setBGroup(e.target.value) }}
-              />
-            </div>
-
-            <div className='input_field'>
-              <label>gender</label>
-
-              <div className='radio_btn'>
-                <input type="radio" id="male" name="gender"
-                  checked={gender === "male"}
-                  value="male"
-                  onChange={(e) => { setGender(e.target.value) }}
-                />
-                <label for="male">Male</label>
-
-                <input type="radio" id="female" name="gender"
-                  checked={gender === "female"}
-                  value = "female"
-                  onChange={(e) => { setGender(e.target.value) }}
-                />
-                <label for="male">female</label>
-              </div>
-
-            </div>
-
-            <div className='input_field'>
-              <label>Any Major Disease</label>
-              <input type="text"
-                value={majorDiseases}
-                onChange={(e) => { setMajorDiseases(e.target.value) }} />
-            </div>
-
-          </section>
-
-
-          <button type="submit" className='submit_btn'>Submit</button>
-
-        </form>
-
-      </section>
-    </main>
-  );
+    <div className='App'>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/user/:pid" element={<PatientForm />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
-
-export default App;
