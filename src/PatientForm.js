@@ -2,11 +2,19 @@ import './App.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
+import Snackbar from '@mui/material/Snackbar';
+import { MdClose } from "react-icons/md";
+
 
 function App() {
 
+    //for snackBar
+    const [showSnackbar, setShowSnackbar] = useState(false);
+
     // const {pid} = useParams();
     const { pid } = useParams();
+
+    const [condition, setCondition] = useState(false);
 
     const [name, setName] = useState("")
 
@@ -54,6 +62,8 @@ function App() {
 
     const handleSubmit = async (e) => {
 
+        setShowSnackbar(true);
+
         e.preventDefault();
 
         try {
@@ -82,10 +92,29 @@ function App() {
             console.error(error.message);
         };
 
+        window.chrome.webview.postMessage(name);
+
+    }
+
+    function handleCloseSnackbar() {
+        setShowSnackbar(false);
     }
 
     return (
         <main className='App'>
+            <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                open={showSnackbar}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+            >
+                <div className="snackbar">
+                    <h2>Thank you! We have received your message.</h2>
+                    <button onClick={handleCloseSnackbar} className="close_btn">
+                        <MdClose />
+                    </button>
+                </div>
+            </Snackbar>
             <section>
                 <form action="" onSubmit={handleSubmit}>
 
