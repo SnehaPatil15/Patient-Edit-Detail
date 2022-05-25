@@ -92,7 +92,7 @@ function App() {
             console.error(error.message);
         };
 
-        window.chrome.webview.postMessage(name);
+        window.chrome.webview.postMessage("true");
 
     }
 
